@@ -1,0 +1,9 @@
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+build/.qmake.stash
+build/main.o
+build/Makefile
+build/PLD3D
+build/projector.o
+build/render.o
+build/window.o
