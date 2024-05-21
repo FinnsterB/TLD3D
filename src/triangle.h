@@ -1,3 +1,5 @@
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
 
 #include <array>
 #include <vector>
@@ -17,5 +19,11 @@ private:
 public:
     Shape(/* args */);
     ~Shape();
+
+    std::vector<Triangle> tris;
+
+    static Shape createTetrahedron(Vec3f& scale);
+    static Shape createTetrahedron(float scale);
 };
 
+#endif

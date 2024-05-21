@@ -14,12 +14,12 @@ class Projector
 {
 private:
     mat4x4 matProj;
-
+    //This function is specific for applying projection to the vector.
+    void MultiplyMatrixVector(Vec3f& i, Vec3f& o, mat4x4& m);
 public:
     Projector(float aFar, float aFov, float aAspectRatio);
     ~Projector();
 
-    //This function is specific for applying projection to the vector.
-    void MultiplyMatrixVector(Vec4f& i, Vec4f& o, mat4x4& m);
+    void projectShape(Shape& input, Shape& output, float thetaX, float thetaZ);
 };
 

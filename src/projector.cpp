@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-void Projector::MultiplyMatrixVector(Vec4f &input, Vec4f &output, mat4x4 &mat)
+void Projector::MultiplyMatrixVector(Vec3f &input, Vec3f &output, mat4x4 &mat)
 {
     // Hardcoded 3 because we only need to calculate for x,y,z.
     // X,y and z are at elements 0,1 and 2 respectively.
@@ -40,4 +40,40 @@ Projector::Projector(float aFar, float aFov, float aAspectRatio)
 
 Projector::~Projector()
 {
+}
+
+void Projector::projectShape(Shape &input, Shape &output, float thetaX, float thetaZ)
+{
+    mat4x4 matRotX, matRotZ;
+
+    matRotZ.at(0,0) = cosf(thetaZ);
+    matRotZ.at(0,1) = sinf(thetaZ);
+    matRotZ.at(1,0) = -sinf(thetaZ);
+    matRotZ.at(1,1) = cosf(thetaZ);
+    matRotZ.at(2,2) = 1;
+    matRotZ.at(3,3) = 1;
+
+    matRotX.at(0,0) = cosf(thetaX);
+    matRotX.at(0,1) = sinf(thetaX);
+    matRotX.at(1,0) = -sinf(thetaX);
+    matRotX.at(1,1) = cosf(thetaX);
+    matRotX.at(2,2) = 1;
+    matRotX.at(3,3) = 1;
+
+    for (unsigned int i = 0; i < input.tris.size(); ++i)
+    {
+        Triangle zRotatedTriangle = input.tris.at(i);
+        Triangle xRotatedTriangle;
+        Triangle translatedTriangle;
+        Triangle projectedTriangle;
+        for (int j = 0; j < 3; j++)
+        {
+            MultiplyMatrixVector(input.tris.at(i).at(j), zRotatedTriangle.at(j), matRotZ);
+            MultiplyMatrixVector(zRotatedTriangle.at(j), xRotatedTriangle.at(j), matRotX);
+            translatedTriangle = xRotatedTriangle;
+            translatedTriangle.at(j).at(2) += 3.0f;
+            MultiplyMatrixVector(translatedTriangle.at(j), projectedTriangle.at(j), matProj);
+        }
+        output.tris.push_back(projectedTriangle);
+    }
 }

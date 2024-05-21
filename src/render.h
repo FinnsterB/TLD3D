@@ -8,11 +8,12 @@
 class Renderer
 {
 private:
-    std::chrono::steady_clock::time_point lastRenderComplete;
-    
+    std::chrono::steady_clock::time_point start;
+
 public:
     void render(QPainter& painter);
     void drawTriangle(QPainter& painter, Triangle& triangle);
+    void scaleProjectionToScreen(Shape& projection, int screenWidth, int screenHeight);
     Renderer(/* args */);
     ~Renderer();
 
