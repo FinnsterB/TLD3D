@@ -9,6 +9,9 @@ class Renderer
 {
 private:
     std::chrono::steady_clock::time_point start;
+    QFont font;
+    float thetaX;
+    float thetaZ;
 
 public:
     void render(QPainter& painter);

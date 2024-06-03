@@ -53,11 +53,11 @@ void Projector::projectShape(Shape &input, Shape &output, float thetaX, float th
     matRotZ.at(2,2) = 1;
     matRotZ.at(3,3) = 1;
 
-    matRotX.at(0,0) = cosf(thetaX);
-    matRotX.at(0,1) = sinf(thetaX);
-    matRotX.at(1,0) = -sinf(thetaX);
+    matRotX.at(0,0) = 1;
     matRotX.at(1,1) = cosf(thetaX);
-    matRotX.at(2,2) = 1;
+    matRotX.at(1,2) = sinf(thetaX);
+    matRotX.at(2,1) = -sinf(thetaX);
+    matRotX.at(2,2) = cosf(thetaX);
     matRotX.at(3,3) = 1;
 
     for (unsigned int i = 0; i < input.tris.size(); ++i)
