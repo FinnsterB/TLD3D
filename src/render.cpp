@@ -10,9 +10,9 @@ void Renderer::render(QPainter& painter)
 
 
     //Project shape with hardcoded values for now.
-    Projector p(1000.0, 90.0, painter.window().width()/painter.window().height());
+    Projector p(100.0, 90.0, painter.window().height()/painter.window().width());
 
-    Shape s = Shape::createTetrahedron(1.0f);
+    Shape s = Shape::createCube(1.0f);
     Shape sOut;
 
     auto end = std::chrono::steady_clock::now();

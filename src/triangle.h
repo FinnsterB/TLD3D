@@ -24,6 +24,8 @@ public:
 
     static Shape createTetrahedron(Vec3f& scale);
     static Shape createTetrahedron(float scale);
+    static Shape createCube(Vec3f& scale);
+    static Shape createCube(float scale);
 };
 
 #endif

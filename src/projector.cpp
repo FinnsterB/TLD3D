@@ -63,15 +63,18 @@ void Projector::projectShape(Shape &input, Shape &output, float thetaX, float th
     for (unsigned int i = 0; i < input.tris.size(); ++i)
     {
         Triangle zRotatedTriangle = input.tris.at(i);
-        Triangle xRotatedTriangle;
+        Triangle zAndxRotatedTriangle;
         Triangle translatedTriangle;
         Triangle projectedTriangle;
         for (int j = 0; j < 3; j++)
         {
             MultiplyMatrixVector(input.tris.at(i).at(j), zRotatedTriangle.at(j), matRotZ);
-            MultiplyMatrixVector(zRotatedTriangle.at(j), xRotatedTriangle.at(j), matRotX);
-            translatedTriangle = xRotatedTriangle;
-            translatedTriangle.at(j).at(2) += 3.0f;
+            MultiplyMatrixVector(zRotatedTriangle.at(j), zAndxRotatedTriangle.at(j), matRotX);
+
+            translatedTriangle = zAndxRotatedTriangle;
+
+            translatedTriangle.at(j).at(2) = zAndxRotatedTriangle.at(j).at(2) + 3.0f;
+
             MultiplyMatrixVector(translatedTriangle.at(j), projectedTriangle.at(j), matProj);
         }
         output.tris.push_back(projectedTriangle);
